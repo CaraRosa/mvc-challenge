@@ -1,0 +1,33 @@
+{
+  "name": "mvc-challenge",
+  "version": "1.0.0",
+  "description": "Tech Blog for users to post blogs posts and comment on other users' posts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaraRosa/mvc-challenge.git"
+  },
+  "keywords": [
+    "Tech",
+    "Blog",
+    "Application"
+  ],
+  "author": "Cara Rosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CaraRosa/mvc-challenge/issues"
+  },
+  "homepage": "https://github.com/CaraRosa/mvc-challenge#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-session-sequelize": "^7.1.7",
+    "dotenv": "^16.3.1",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.6.3",
+    "sequelize": "^6.34.0"
+  }
+}
