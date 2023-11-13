@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
 // display signup form
@@ -11,7 +12,9 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await User.create({ username, password });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ username, password: hashedPassword });
 
         res.redirect('/login');
     } catch (error) {
@@ -27,10 +30,18 @@ router.get('/login', (req, res) => {
 
 // login form submission
 router.post('/login', async (req, res) => {
-    const {username, password } = req.body;
-    const user = await User.findOne({ wehre: { username, password} });
+    const { username, password } = req.body;
+    const user = await User.findOne({ wehre: { username } });
 
     if(user) {
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if(passwordMatch) {
+            res.render('dashboard');
+        } else {
+        res.render('login', { error: 'Invalid username or password' });
+        }
+    } else {
         res.render('login', { error: 'Invalid username or password' });
     }
 });
@@ -45,6 +56,6 @@ router.get('/logout', (req, res) => {
             res.redirect('/homepage')
         }
     });
-})
+});
 
 module.exports = router;
