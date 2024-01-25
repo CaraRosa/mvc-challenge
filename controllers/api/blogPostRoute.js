@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { blogPost } = require('../models');
-const withAuth = require('../middleware/withAuth');
+const { blogPost } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // gets all posts
 router.get('/posts', async (req, res) => {

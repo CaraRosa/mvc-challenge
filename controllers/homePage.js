@@ -1,8 +1,12 @@
 const router = require('express').Router();
-const { blogPost, User } = require('../../models');
+const { blogPost, User } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
+    console.log('HOMEPATH');
+    res.render('homepage');
+    
+    // res.send("hello");
     try {
         const blogData = await blogPost.findAll({
         include: [
@@ -11,13 +15,14 @@ router.get('/', async (req, res) => {
                 attributes: ['username'],
             },
         ],
-    });
+        });
     const blogs = blogData.map((blogPost) => blogPost.get({ plain: true}));
-
-    res.render('homepage', {
-        blogPost,
-    });
+        console.log(blogData);
+        res.render('homepage', {
+            blogs,
+        });
     } catch (err) {
+        console.error(err);
         res.status(500).json(err);
     }
 });
@@ -40,3 +45,10 @@ router.get('/blog/:id', async (req, res) => {
         res.status(500).json(err);
     }
 })
+
+router.get('/login', (req, res) => {
+    console.log("login");
+    res.render('login');
+});
+
+module.exports = router;

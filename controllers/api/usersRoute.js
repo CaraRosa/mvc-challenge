@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
+const { User } = require('../../models');
 
 // display signup form
 router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+// move hashed password
 // sigup form submission
 router.post('/signup', async (req, res) => {
     try {
@@ -24,14 +25,12 @@ router.post('/signup', async (req, res) => {
 });
 
 // display login form
-router.get('/login', (req, res) => {
-    res.render('login');
-});
+
 
 // login form submission
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ wehre: { username } });
+    const user = await User.findOne({ where: { username } });
 
     if(user) {
         const passwordMatch = await bcrypt.compare(password, user.password);
