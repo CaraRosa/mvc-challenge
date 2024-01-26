@@ -39,15 +39,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(routes);
+app.use(routes);
 
-// sequelize.sync({ force: false}).then(() => {
-//     console.log('Server listening on: http://localhost:' + PORT);
-// });
-
-app.listen(PORT, () => {
+sequelize.sync({ force: false}).then(() => {
     console.log('Server listening on: http://localhost:' + PORT);
-})
+    app.listen(PORT, () => {
+        console.log('Server listening on: http://localhost:' + PORT);
+    })
+});
+
+
 
 
 

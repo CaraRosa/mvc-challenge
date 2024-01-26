@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { blogPost, User } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', withAuth, async (req, res) => {
+router.get('/home', async (req, res) => {
     console.log('HOMEPATH');
-    res.render('homepage');
+    // res.render('homepage');
     
     // res.send("hello");
     try {
